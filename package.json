@@ -1,0 +1,14 @@
+{
+  "name": "google-cloud-webhook-proxy",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "deploy": "tsc && gcloud functions deploy webhook-proxy --gen2 --runtime=nodejs20 --trigger-http --region asia-northeast1 --allow-unauthenticated --entry-point webhookProxy --update-env-vars GITHUB_SECRET=$GITHUB_SECRET,BUILD_TRIGGER_URL=$BUILD_TRIGGER_URL,TARGET_BRANCH_REGEX=$TARGET_BRANCH_REGEX"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.2"
+  },
+  "dependencies": {
+    "@google-cloud/functions-framework": "^3.4.2"
+  }
+}
