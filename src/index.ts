@@ -68,7 +68,7 @@ const handleWebhook = async (req: Request, res: Response) => {
   if (signature && typeof (signature) === "string") {
     verification_ok = await verifySignature(GITHUB_SECRET as string, signature, body)
   } if (!verification_ok) {
-    res.status(404).send("Unauthorized: wrong github secret set?");
+    res.status(401).send("Unauthorized: wrong github secret set?");
     return
   }
   const push_target_ref = req.body["ref"]
@@ -84,7 +84,7 @@ const handleWebhook = async (req: Request, res: Response) => {
       res.send(`Sent deploy request to cloud build. Response: ${resp_text}`)
     })
       .catch((err) => {
-        res.send(`Failed to send deploy request to cloud build. Response: ${err}`)
+        res.status(500).send(`Failed to send deploy request to cloud build. Response: ${err}`)
       })
     return
   }
