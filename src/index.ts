@@ -68,7 +68,7 @@ const handleWebhook = async (req: Request, res: Response) => {
   if (signature && typeof (signature) === "string") {
     verification_ok = await verifySignature(GITHUB_SECRET as string, signature, body)
   } if (!verification_ok) {
-    res.status(404).send("Unauthorized");
+    res.status(404).send("Unauthorized: wrong github secret set?");
     return
   }
   const push_target_ref = req.body["ref"]
